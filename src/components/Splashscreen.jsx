@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
 const SplashScreen = () => {
-  // Progress bar animation ke liye state
+  
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // 100ms par progress badhayenge taaki bar fill hota hua dikhe
+    
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
           return 100;
         }
-        return prev + 4; // Har baar thoda badhega (adjust speed here)
+        return prev + 4; 
       });
     }, 100);
 

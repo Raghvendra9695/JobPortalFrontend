@@ -13,7 +13,7 @@ const Navbar = () => {
     if (storedUser) setUser(JSON.parse(storedUser));
   }, []);
 
-  // Dropdown ke bahar click karne par band karna
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

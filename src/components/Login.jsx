@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
-  const navigate = useNavigate(); // Page badalne ke liye
+  const navigate = useNavigate(); 
 
   const [formData, setFormData] = useState({
     email: '',

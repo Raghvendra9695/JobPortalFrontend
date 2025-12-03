@@ -165,7 +165,7 @@ const Register = () => {
 
           <button
             type="submit"
-            disabled={loading} // Loading ke time button disable
+            disabled={loading} 
             className={`w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white 
               ${loading ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'} 
               transition duration-200`}

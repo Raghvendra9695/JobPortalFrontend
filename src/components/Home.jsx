@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'; // Axios import kiya
+import axios from 'axios'; 
 import Hero from './Hero';
 import JobCard from './JobCard';
 
 const Home = () => {
-  const [jobs, setJobs] = useState([]); // Data store karne ke liye
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error handle karne ke liye
+  const [jobs, setJobs] = useState([]); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
-    // API Call Function
+    
     const fetchJobs = async () => {
       try {
-        // NOTE: Yahan apna sahi Backend URL dalein
+      
         const response = await axios.get('http://localhost:8080/api/jobs');
         
-        console.log("Data from Backend:", response.data); // Console me check karein
-        setJobs(response.data); // State update karein
-        setLoading(false); // Loading band karein
+        console.log("Data from Backend:", response.data);
+        setJobs(response.data);
+        setLoading(false);
       } catch (err) {
         console.error("Error fetching jobs:", err);
         setError("Failed to load jobs. Is Backend running?");
@@ -26,7 +26,7 @@ const Home = () => {
     };
 
     fetchJobs();
-  }, []); // Empty array [] matlab page load par ek baar chalega
+  }, []); 
 
   return (
     <div>

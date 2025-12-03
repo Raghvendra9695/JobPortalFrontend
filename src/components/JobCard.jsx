@@ -2,24 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const JobCard = ({ job }) => {
-  // Data Mapping: Agar purana naam na mile to naya wala (Database wala) use karo
-  // Example: job.type (React) vs job.jobType (Java/DB)
+  
   const jobType = job.type || job.jobType || job.job_type || "Full Time";
   const jobLocation = job.location || "Remote";
   const jobTitle = job.title || "Software Engineer";
   const jobCompany = job.company || "Unknown Company";
   const jobDesc = job.description || "No description available.";
-  
-  // Salary Logic: DB me min/max alag hain, unhe jod kar dikhate hain
+
   let displaySalary = "Not Disclosed";
   if (job.salary) {
-    displaySalary = job.salary; // Agar direct salary string hai
+    displaySalary = job.salary; 
   } else if (job.salaryMin && job.salaryMax) {
-    // Agar number hai to 'k' ya 'L' format me dikhana better hai, abhi simple rakhte hain
     displaySalary = `₹${job.salaryMin} - ₹${job.salaryMax}`; 
   }
-
-  // Company ka pehla letter logo ke liye
   const companyInitial = jobCompany ? jobCompany[0] : "C";
 
   return (

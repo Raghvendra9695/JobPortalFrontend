@@ -7,7 +7,7 @@ const PostJob = () => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
 
-  // Form Data State
+  
   const [jobData, setJobData] = useState({
     title: '',
     company: '',
@@ -32,7 +32,6 @@ const PostJob = () => {
     const parsedUser = JSON.parse(storedUser);
     setUser(parsedUser);
 
-    // 2. Check karo user EMPLOYER hai ya nahi
     if (parsedUser.role !== 'EMPLOYER') {
       alert("Only Employers can post jobs!");
       navigate('/');
@@ -49,19 +48,17 @@ const PostJob = () => {
 
     try {
       const token = localStorage.getItem('token');
-      
-      // 3. API Call with Token Header
-      // Authorization header bhejna jaruri hai taaki backend pehchan sake
+    
       const config = {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       };
 
-      // Note: Backend 'salaryMin' aur 'salaryMax' expect kar raha hai (CamelCase)
+      
       const payload = {
         ...jobData,
-        // String ko Number me convert karna jaruri hai agar backend Long/Int maang raha hai
+
         salaryMin: Number(jobData.salaryMin),
         salaryMax: Number(jobData.salaryMax)
       };
@@ -71,7 +68,7 @@ const PostJob = () => {
       console.log("Job Posted:", response.data);
       alert("Job Posted Successfully! 🚀");
       
-      navigate('/'); // Home page par bhej do
+      navigate('/'); 
 
     } catch (err) {
       console.error("Error posting job:", err);
@@ -81,7 +78,7 @@ const PostJob = () => {
     }
   };
 
-  if (!user) return null; // Jab tak check ho raha hai, kuch mat dikhao
+  if (!user) return null; 
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

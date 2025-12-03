@@ -26,18 +26,13 @@ const Dashboard = () => {
       navigate('/');
       return;
     }
-
-    // Abhi ke liye hum saari jobs manga kar filter karenge (Baad me Backend API banayenge)
     fetchMyJobs(parsedUser.email);
   }, [navigate]);
 
   const fetchMyJobs = async (email) => {
     try {
-      // Note: Ideal tarika ye hai ki backend me /my-jobs API ho.
-      // Abhi hum jugad kar rahe hain: Saari jobs lao aur UI pe filter karo (temporary)
-      const response = await axios.get('http://localhost:8080/api/jobs');
-      // Maan lete hain ki humare paas abhi filter logic nahi hai, to bas dikhaane ke liye slice kar rahe hain
-      // Jab backend me 'createdBy' field hoga tab sahi filter lagega.
+    
+      const response = await axios.get('http://localhost:8080/api/jobs')
       setMyJobs(response.data.slice(0, 5)); 
       setLoading(false);
     } catch (err) {
@@ -48,7 +43,6 @@ const Dashboard = () => {
 
   const handleDelete = (id) => {
     if(confirm("Are you sure you want to delete this job?")) {
-        // Delete API Call logic here...
         alert("Delete feature coming soon!");
     }
   }
