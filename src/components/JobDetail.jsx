@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import axios from 'axios'; 
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const JobDetail = () => {
-  const { id } = useParams(); 
-  const [job, setJob] = useState(null); 
+  const { id } = useParams();
+  const navigate = useNavigate();
+  
+  const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [applying, setApplying] = useState(false); // Button loading state
 
   useEffect(() => {
-    
     window.scrollTo(0, 0);
-
-    
     const fetchJob = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/jobs/${id}`);
@@ -24,9 +24,52 @@ const JobDetail = () => {
         setLoading(false);
       }
     };
-
     fetchJob();
   }, [id]);
+
+  // ✅ Apply Job Logic
+  const handleApply = async () => {
+    // 1. Check Login
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (!token || !user) {
+      alert("Please Login first to apply for this job!");
+      navigate('/login');
+      return;
+    }
+
+    
+    if (user.role === 'EMPLOYER') {
+      alert("Employers cannot apply for jobs!");
+      return;
+    }
+
+    if(!confirm(`Apply for ${job.title} at ${job.company}?`)) return;
+
+    setApplying(true);
+
+    try {
+      // 3. API Call
+      await axios.post(
+        `http://localhost:8080/api/applications/apply/${id}`, 
+        {}, // Body empty hai
+        {
+          headers: { Authorization: `Bearer ${token}` } // Header jaruri hai
+        }
+      );
+
+      alert("🎉 Application Submitted Successfully!");
+      navigate('/dashboard'); 
+
+    } catch (err) {
+      console.error("Apply Error:", err);
+    
+      alert(err.response?.data || "Failed to apply. Please try again.");
+    } finally {
+      setApplying(false);
+    }
+  };
 
   if (loading) return <div className="text-center mt-20 text-blue-600">Loading details...</div>;
   if (error) return <div className="text-center mt-20 text-red-500">{error}</div>;
@@ -37,7 +80,7 @@ const JobDetail = () => {
       <div className="max-w-4xl mx-auto">
         
         {/* Back Button */}
-        <Link to="/" className="text-blue-600 hover:text-blue-800 font-medium mb-4 inline-block">
+        <Link to="/jobs" className="text-blue-600 hover:text-blue-800 font-medium mb-4 inline-block">
           &larr; Back to Jobs
         </Link>
 
@@ -50,12 +93,15 @@ const JobDetail = () => {
                 {job.company} • {job.location}
               </p>
             </div>
-            {/* Apply Button */}
+            
+            {/* ✅ Apply Button Updated */}
             <button 
-              onClick={() => alert("Application Feature coming soon!")}
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition shadow-lg w-full md:w-auto"
+              onClick={handleApply}
+              disabled={applying} 
+              className={`px-8 py-3 rounded-lg font-bold text-white transition shadow-lg w-full md:w-auto 
+                ${applying ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
             >
-              Apply Now
+              {applying ? 'Applying...' : 'Apply Now'}
             </button>
           </div>
         </div>
@@ -68,9 +114,6 @@ const JobDetail = () => {
             <p className="text-gray-600 leading-relaxed mb-6 whitespace-pre-line">
               {job.description}
             </p>
-            
-            {/* Requirements Section (Agar DB me alag column ho to wo use karein) */}
-            {/* Abhi hum description hi dikha rahe hain */}
           </div>
 
           {/* Right Column: Sidebar */}

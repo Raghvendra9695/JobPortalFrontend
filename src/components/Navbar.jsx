@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, LogOut, LayoutDashboard, Briefcase } from 'lucide-react'; // Icons
+import { User, LogOut, LayoutDashboard } from 'lucide-react';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -13,7 +13,6 @@ const Navbar = () => {
     if (storedUser) setUser(JSON.parse(storedUser));
   }, []);
 
-  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -35,19 +34,22 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-             <div className="bg-blue-600 p-1.5 rounded-lg">
-                <Briefcase className="text-white" size={24} />
-             </div>
-             <h1 className="text-2xl font-bold text-slate-800 tracking-tight">
-               JobNexus
+          {/* ✅ NEW LOGO SECTION */}
+          <Link to="/" className="flex items-center gap-3">
+             {/* Professional AI Logo */}
+             <img 
+                src="https://cdn-icons-png.flaticon.com/128/2103/2103633.png" 
+                alt="CareerVision AI Logo" 
+                className="w-10 h-10 object-contain"
+             />
+             <h1 className="text-2xl font-bold text-blue-600 tracking-tight">
+               CareerVision<span className="text-slate-800"> AI</span>
              </h1>
           </Link>
 
           {/* Desktop Links */}
           <div className="hidden md:flex space-x-8">
-            <Link to="/" className="text-gray-600 hover:text-blue-600 font-medium transition">Find Jobs</Link>
+            <Link to="/jobs" className="text-gray-600 hover:text-blue-600 font-medium transition">Find Jobs</Link>
             <a href="#" className="text-gray-600 hover:text-blue-600 font-medium transition">Companies</a>
           </div>
 
@@ -55,7 +57,6 @@ const Navbar = () => {
           <div className="flex items-center space-x-4">
             {user ? (
               <div className="relative" ref={dropdownRef}>
-                {/* User Avatar Button */}
                 <button 
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   className="flex items-center gap-2 focus:outline-none hover:bg-gray-50 p-2 rounded-full transition"
@@ -66,7 +67,6 @@ const Navbar = () => {
                   <span className="text-sm font-medium text-gray-700 hidden sm:block">{user.name}</span>
                 </button>
 
-                {/* Dropdown Menu */}
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 animate-in fade-in slide-in-from-top-2">
                     <div className="px-4 py-2 border-b border-gray-50">
