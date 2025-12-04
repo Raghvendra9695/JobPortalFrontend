@@ -19,7 +19,7 @@ const PostJob = () => {
   });
 
   useEffect(() => {
-    // 1. Check karo user logged in hai ya nahi
+    
     const storedUser = localStorage.getItem('user');
     const token = localStorage.getItem('token');
 

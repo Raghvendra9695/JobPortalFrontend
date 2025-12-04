@@ -33,28 +33,27 @@ const Register = () => {
     setLoading(true);
     setError(null);
 
-    // 2. Data Mapping (Frontend format -> Backend format)
+    
     const payload = {
-      name: formData.fullName, // Backend 'name' maangta hai, humare paas 'fullName' hai
+      name: formData.fullName, 
       email: formData.email,
       password: formData.password,
-      // Backend ko 'EMPLOYER' ya 'JOB_SEEKER' chahiye
+      
       role: formData.role === 'recruiter' ? 'EMPLOYER' : 'JOB_SEEKER'
     };
 
     try {
-      // 3. API Call
+      
       const response = await axios.post('http://localhost:8080/api/auth/register', payload);
       
       console.log("Registration Success:", response.data);
       alert("Registration Successful! Please Login.");
       
-      // 4. Redirect to Login Page
+      
       navigate('/login');
 
     } catch (err) {
       console.error("Registration Error:", err);
-      // Agar backend se message aaya to wo dikhao, nahi to default message
       setError(err.response?.data || "Registration failed. Try again.");
     } finally {
       setLoading(false);
