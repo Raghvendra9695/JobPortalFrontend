@@ -32,7 +32,7 @@ const Dashboard = () => {
   const fetchMyJobs = async (email) => {
     try {
     
-      const response = await axios.get('http://localhost:8080/api/jobs')
+      const response = await axios.get('https://jobportalbackend-ie98.onrender.com/api/jobs')
       setMyJobs(response.data.slice(0, 5)); 
       setLoading(false);
     } catch (err) {

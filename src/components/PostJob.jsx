@@ -63,7 +63,7 @@ const PostJob = () => {
         salaryMax: Number(jobData.salaryMax)
       };
 
-      const response = await axios.post('http://localhost:8080/api/jobs/create', payload, config);
+      const response = await axios.post('https://jobportalbackend-ie98.onrender.com/api/jobs/create', payload, config);
       
       console.log("Job Posted:", response.data);
       alert("Job Posted Successfully! 🚀");
