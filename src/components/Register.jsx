@@ -44,7 +44,7 @@ const Register = () => {
 
     try {
       
-      const response = await axios.post('/api/auth/register', payload);
+      const response = await axios.post('https://jobportalbackend-ie98.onrender.com/api/auth/register', payload);
       
       console.log("Registration Success:", response.data);
       alert("Registration Successful! Please Login.");

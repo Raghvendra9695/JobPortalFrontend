@@ -2,7 +2,7 @@ import React from 'react';
 
 const Hero = () => {
   return (
-    // 1. Background ko Dark (slate-900) se hata kar Light Gradient kar diya
+    
     <div className="bg-gradient-to-b from-blue-50 via-white to-white pt-24 pb-20 border-b border-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         

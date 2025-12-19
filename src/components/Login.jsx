@@ -24,7 +24,7 @@ const Login = () => {
     setError(null);
 
     try {
-      // 1. API Call
+      
       const response = await axios.post('https://jobportalbackend-ie98.onrender.com/api/auth/login', formData);
       
       console.log("Login Success:", response.data);
