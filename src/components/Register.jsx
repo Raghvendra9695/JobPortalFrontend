@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // useNavigate import kiya
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Register = () => {
-  const navigate = useNavigate(); // Page badalne ke liye hook
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     password: '',
     confirmPassword: '',
-    role: 'seeker' // Default UI value
+    role: 'seeker' 
   });
 
   const [loading, setLoading] = useState(false);
@@ -18,13 +18,13 @@ const Register = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setError(null); // Type karte waqt error hata do
+    setError(null); 
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // 1. Password Match Check
+    
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
@@ -44,7 +44,7 @@ const Register = () => {
 
     try {
       
-      const response = await axios.post('https://jobportalbackend-ie98.onrender.com/api/auth/register', payload);
+      const response = await axios.post('https://livereconai-backend-1-9l6a.onrender.com/api/auth/register', payload);
       
       console.log("Registration Success:", response.data);
       alert("Registration Successful! Please Login.");
