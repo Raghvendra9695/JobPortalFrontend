@@ -25,12 +25,11 @@ const Login = () => {
 
     try {
       
-      const response = await axios.post('https://jobportalbackend-ie98.onrender.com/api/auth/login', formData);
+      const response = await axios.post('http://localhost:8080/api/auth/login', formData);
       
       console.log("Login Success:", response.data);
 
-      // 2. Token aur User Data ko LocalStorage me save karo
-      // Taaki user refresh karne par bhi logged in rahe
+      
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data)); // Name, Role, etc.
 

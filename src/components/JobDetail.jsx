@@ -15,7 +15,7 @@ const JobDetail = () => {
     window.scrollTo(0, 0);
     const fetchJob = async () => {
       try {
-        const response = await axios.get(`https://jobportalbackend-ie98.onrender.com/api/jobs/${id}`);
+        const response = await axios.get(`http://localhost:8080/api/jobs/${id}`);
         setJob(response.data);
         setLoading(false);
       } catch (err) {
