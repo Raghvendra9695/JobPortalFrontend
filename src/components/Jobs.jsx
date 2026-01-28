@@ -10,7 +10,7 @@ const Jobs = () => {
     window.scrollTo(0, 0);
     const fetchJobs = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/jobs');
+        const response = await axios.get('https://jobportalbackend-5-ogdm.onrender.com');
         setJobs(response.data);
         setLoading(false);
       } catch (err) {

@@ -25,7 +25,7 @@ const Login = () => {
 
     try {
       
-      const response = await axios.post('http://localhost:8080/api/auth/login', formData);
+      const response = await axios.post('https://jobportalbackend-5-ogdm.onrender.com', formData);
       
       console.log("Login Success:", response.data);
 

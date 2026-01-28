@@ -5,26 +5,29 @@ import axios from 'axios';
 const Register = () => {
   const navigate = useNavigate();
 
+  // State Management
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     password: '',
     confirmPassword: '',
-    role: 'seeker' 
+    role: 'seeker' // Default role
   });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Input Change Handler
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setError(null); 
+    setError(null);
   };
 
+  // Form Submit Handler
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    
+
+    // 1. Password Check
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
@@ -33,28 +36,27 @@ const Register = () => {
     setLoading(true);
     setError(null);
 
-    
+    // 2. Payload Creation (Recruiter Logic Fixed)
+    // Agar recruiter select kiya hai to 'RECRUITER' bhejo, nahi to 'JOB_SEEKER'
     const payload = {
-      name: formData.fullName, 
+      name: formData.fullName,
       email: formData.email,
       password: formData.password,
-      
-      role: formData.role === 'recruiter' ? 'EMPLOYER' : 'JOB_SEEKER'
+      role: formData.role === 'recruiter' ? 'RECRUITER' : 'JOB_SEEKER'
     };
 
     try {
-      
-      const response = await axios.post('http://localhost:8080/api/auth/register', payload);
-      
+      const response = await axios.post('https://jobportalbackend-5-ogdm.onrender.com', payload);
+
       console.log("Registration Success:", response.data);
       alert("Registration Successful! Please Login.");
       
-      
+      // 4. Redirect to Login
       navigate('/login');
 
     } catch (err) {
       console.error("Registration Error:", err);
-      setError(err.response?.data || "Registration failed. Try again.");
+      setError(err.response?.data?.message || err.response?.data || "Registration failed. Try again.");
     } finally {
       setLoading(false);
     }
@@ -64,6 +66,7 @@ const Register = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg border border-gray-200">
         
+        {/* Header */}
         <div className="text-center">
           <h2 className="mt-4 text-3xl font-extrabold text-slate-900">
             Create an Account 🚀
@@ -73,7 +76,7 @@ const Register = () => {
           </p>
         </div>
 
-        {/* Error Message Show karne ke liye */}
+        {/* Error Message Display */}
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-sm">
             {error}
@@ -82,7 +85,7 @@ const Register = () => {
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           
-          {/* Role Selection (Toggle) */}
+          {/* ROLE SELECTION BUTTONS (Imp for Recruiter) */}
           <div className="flex bg-gray-100 p-1 rounded-lg mb-6">
             <button
               type="button"
@@ -162,6 +165,7 @@ const Register = () => {
             </div>
           </div>
 
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading} 
@@ -173,6 +177,7 @@ const Register = () => {
           </button>
         </form>
 
+        {/* Login Link */}
         <div className="text-center mt-4">
           <p className="text-sm text-gray-600">
             Already have an account?{' '}
@@ -188,4 +193,3 @@ const Register = () => {
 };
 
 export default Register;
-// Update backend URL force check

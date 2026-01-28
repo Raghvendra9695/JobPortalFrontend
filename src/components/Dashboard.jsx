@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Briefcase, Users, Eye, PlusCircle, Trash2, Edit } from 'lucide-react'; // Icons import kiye
+import { Briefcase, Users, Eye, PlusCircle, Trash2, Edit } from 'lucide-react'; 
 import axios from 'axios';
 
 const Dashboard = () => {
@@ -21,18 +21,23 @@ const Dashboard = () => {
     const parsedUser = JSON.parse(storedUser);
     setUser(parsedUser);
 
-    if (parsedUser.role !== 'EMPLOYER') {
-      alert("Access Denied! Only Employers can view Dashboard.");
+    // ✅ FIX: RECRUITER aur EMPLOYER dono ko allow karo
+    // Kyunki shayad purane user 'EMPLOYER' hon aur naye 'RECRUITER'
+    const userRole = parsedUser.role?.toUpperCase(); // Safe side ke liye uppercase kar lo
+    
+    if (userRole !== 'EMPLOYER' && userRole !== 'RECRUITER') {
+      alert("Access Denied! Only Employers/Recruiters can view Dashboard.");
       navigate('/');
       return;
     }
+
     fetchMyJobs(parsedUser.email);
   }, [navigate]);
 
   const fetchMyJobs = async (email) => {
     try {
-    
-      const response = await axios.get('https://jobportalbackend-ie98.onrender.com/api/jobs')
+      
+      const response = await axios.get('https://jobportalbackend-5-ogdm.onrender.com/api/jobs');
       setMyJobs(response.data.slice(0, 5)); 
       setLoading(false);
     } catch (err) {

@@ -39,7 +39,7 @@ const SplashScreen = () => {
       </div>
 
       <p className="text-gray-400 mt-4 text-sm font-medium">
-        Loading opportunities...
+      
       </p>
 
     </div>
