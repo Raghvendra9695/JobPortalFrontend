@@ -35,9 +35,6 @@ const Register = () => {
 
     setLoading(true);
     setError(null);
-
-    // 2. Payload Creation (Recruiter Logic Fixed)
-    // Agar recruiter select kiya hai to 'RECRUITER' bhejo, nahi to 'JOB_SEEKER'
     const payload = {
       name: formData.fullName,
       email: formData.email,
@@ -46,7 +43,7 @@ const Register = () => {
     };
 
     try {
-      const response = await axios.post('https://jobportalbackend-5-ogdm.onrender.com', payload);
+      const response = await axios.post('https://jobportalbackend-5-ogdm.onrender.com/api/auth/register', payload);
 
       console.log("Registration Success:", response.data);
       alert("Registration Successful! Please Login.");
