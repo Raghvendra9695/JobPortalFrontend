@@ -5,6 +5,7 @@ import axios from 'axios';
 const Login = () => {
   const navigate = useNavigate(); 
 
+  // State Management
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -13,32 +14,40 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Input Change Handler
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setError(null);
   };
 
+  // Form Submit Handler
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
+    // ✅ STEP 1: Payload define kiya (Jo data bhejna hai)
+    const payload = {
+      email: formData.email,
+      password: formData.password
+    };
+
     try {
-      
+      // ✅ STEP 2: API Call with Payload
       const response = await axios.post('https://jobportalbackend-5-ogdm.onrender.com/api/auth/login', payload);
       
       console.log("Login Success:", response.data);
 
-      
+      // Token aur User Info save karo
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data)); // Name, Role, etc.
+      localStorage.setItem('user', JSON.stringify(response.data)); 
 
-      alert(`Welcome back, ${response.data.name}! 🚀`);
+      alert(`Welcome back, ${response.data.name || "User"}! 🚀`);
 
       // 3. Home Page par bhej do
       navigate('/');
       
-      // 4. Page ko reload karo taaki Navbar update ho jaye (Login -> Logout dikhe)
+      // 4. Page ko reload karo taaki Navbar update ho jaye
       window.location.reload();
 
     } catch (err) {
@@ -54,6 +63,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg border border-gray-200">
         
+        {/* Header */}
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-extrabold text-slate-900">
             Welcome Back! 👋
@@ -134,6 +144,7 @@ const Login = () => {
           </div>
         </form>
 
+        {/* Footer Link */}
         <div className="text-center mt-4">
           <p className="text-sm text-gray-600">
             Don't have an account?{' '}
