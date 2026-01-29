@@ -43,12 +43,10 @@ const Register = () => {
     };
 
     try {
-      const response = await axios.post('https://jobportalbackend-5-ogdm.onrender.com/api/auth/register', payload);
+const response = await axios.post('https://jobportalbackend-5-ogdm.onrender.com/api/auth/register', payload);
 
       console.log("Registration Success:", response.data);
       alert("Registration Successful! Please Login.");
-      
-      // 4. Redirect to Login
       navigate('/login');
 
     } catch (err) {
