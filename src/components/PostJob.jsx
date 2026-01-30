@@ -6,7 +6,6 @@ const PostJob = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
-
   
   const [jobData, setJobData] = useState({
     title: '',
@@ -19,7 +18,6 @@ const PostJob = () => {
   });
 
   useEffect(() => {
-    
     const storedUser = localStorage.getItem('user');
     const token = localStorage.getItem('token');
 
@@ -31,9 +29,10 @@ const PostJob = () => {
 
     const parsedUser = JSON.parse(storedUser);
     setUser(parsedUser);
-
-    if (parsedUser.role !== 'EMPLOYER') {
-      alert("Only Employers can post jobs!");
+    const userRole = parsedUser.role?.toUpperCase();
+    
+    if (userRole !== 'EMPLOYER' && userRole !== 'RECRUITER') {
+      alert("Only Employers/Recruiters can post jobs!");
       navigate('/');
     }
   }, [navigate]);
@@ -54,11 +53,9 @@ const PostJob = () => {
           'Authorization': `Bearer ${token}`
         }
       };
-
       
       const payload = {
         ...jobData,
-
         salaryMin: Number(jobData.salaryMin),
         salaryMax: Number(jobData.salaryMax)
       };
@@ -68,7 +65,8 @@ const PostJob = () => {
       console.log("Job Posted:", response.data);
       alert("Job Posted Successfully! 🚀");
       
-      navigate('/'); 
+  
+      navigate('/dashboard'); 
 
     } catch (err) {
       console.error("Error posting job:", err);
