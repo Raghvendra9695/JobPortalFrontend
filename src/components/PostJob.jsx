@@ -11,7 +11,8 @@ const PostJob = () => {
     title: '',
     company: '',
     location: '',
-    jobType: 'Full Time',
+    // ✅ FIX 1: Default value ko Enum format me kiya
+    jobType: 'FULL_TIME', 
     salaryMin: '',
     salaryMax: '',
     description: ''
@@ -29,8 +30,9 @@ const PostJob = () => {
 
     const parsedUser = JSON.parse(storedUser);
     setUser(parsedUser);
+
+    // Check Role (Employer OR Recruiter)
     const userRole = parsedUser.role?.toUpperCase();
-    
     if (userRole !== 'EMPLOYER' && userRole !== 'RECRUITER') {
       alert("Only Employers/Recruiters can post jobs!");
       navigate('/');
@@ -60,12 +62,12 @@ const PostJob = () => {
         salaryMax: Number(jobData.salaryMax)
       };
 
+      // URL Check: Ensure this is the correct live backend URL
       const response = await axios.post('https://jobportalbackend-5-ogdm.onrender.com/api/jobs/create', payload, config);
       
       console.log("Job Posted:", response.data);
       alert("Job Posted Successfully! 🚀");
       
-  
       navigate('/dashboard'); 
 
     } catch (err) {
@@ -128,6 +130,8 @@ const PostJob = () => {
                 onChange={handleChange}
               />
             </div>
+            
+            {/* ✅ FIX 2: Added 'value' attribute for Backend Enum Compatibility */}
             <div>
               <label className="block text-sm font-medium text-gray-700">Job Type</label>
               <select
@@ -136,11 +140,11 @@ const PostJob = () => {
                 onChange={handleChange}
                 value={jobData.jobType}
               >
-                <option>Full Time</option>
-                <option>Part Time</option>
-                <option>Contract</option>
-                <option>Internship</option>
-                <option>Freelance</option>
+                <option value="FULL_TIME">Full Time</option>
+                <option value="PART_TIME">Part Time</option>
+                <option value="CONTRACT">Contract</option>
+                <option value="INTERNSHIP">Internship</option>
+                <option value="FREELANCE">Freelance</option>
               </select>
             </div>
           </div>
