@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, LogOut, LayoutDashboard } from 'lucide-react';
+import { User, LogOut, LayoutDashboard, Sparkles } from 'lucide-react'; // Sparkles icon add kiya
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -50,15 +50,22 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* ✅ MIDDLE: Links (Find Jobs & Companies) */}
-          <div className="hidden md:flex space-x-8">
+          {/* ✅ MIDDLE: Links (Find Jobs, Companies & AI Tool) */}
+          <div className="hidden md:flex space-x-8 items-center">
             <Link to="/jobs" className="text-gray-600 hover:text-blue-600 font-medium transition text-lg">
                 Find Jobs
             </Link>
             
-            {/* 🔥 COMPANIES OPTION ADDED BACK */}
             <Link to="/companies" className="text-gray-600 hover:text-blue-600 font-medium transition text-lg">
                 Companies
+            </Link>
+
+            {/* 🔥 NEW AI LINK ADDED HERE */}
+            <Link 
+              to="/ai-cover-letter" 
+              className="text-gray-600 hover:text-blue-600 font-medium transition text-lg flex items-center gap-1"
+            >
+                <Sparkles size={18} className="text-yellow-500" /> AI Cover Letter
             </Link>
           </div>
 

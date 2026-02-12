@@ -11,8 +11,8 @@ const PostJob = () => {
     title: '',
     company: '',
     location: '',
-    // ✅ FIX 1: Default value ko Enum format me kiya
-    jobType: 'FULL_TIME', 
+    jobType: 'Full Time', 
+    category: 'Engineering', 
     salaryMin: '',
     salaryMax: '',
     description: ''
@@ -31,7 +31,6 @@ const PostJob = () => {
     const parsedUser = JSON.parse(storedUser);
     setUser(parsedUser);
 
-    // Check Role (Employer OR Recruiter)
     const userRole = parsedUser.role?.toUpperCase();
     if (userRole !== 'EMPLOYER' && userRole !== 'RECRUITER') {
       alert("Only Employers/Recruiters can post jobs!");
@@ -49,10 +48,10 @@ const PostJob = () => {
 
     try {
       const token = localStorage.getItem('token');
-    
+      
       const config = {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}` // ✅ Token Header
         }
       };
       
@@ -62,7 +61,7 @@ const PostJob = () => {
         salaryMax: Number(jobData.salaryMax)
       };
 
-      // URL Check: Ensure this is the correct live backend URL
+      // ✅ Correct URL (5-ogdm wala)
       const response = await axios.post('https://jobportalbackend-5-ogdm.onrender.com/api/jobs/create', payload, config);
       
       console.log("Job Posted:", response.data);
@@ -130,8 +129,6 @@ const PostJob = () => {
                 onChange={handleChange}
               />
             </div>
-            
-            {/* ✅ FIX 2: Added 'value' attribute for Backend Enum Compatibility */}
             <div>
               <label className="block text-sm font-medium text-gray-700">Job Type</label>
               <select
@@ -140,13 +137,33 @@ const PostJob = () => {
                 onChange={handleChange}
                 value={jobData.jobType}
               >
-                <option value="FULL_TIME">Full Time</option>
-                <option value="PART_TIME">Part Time</option>
-                <option value="CONTRACT">Contract</option>
-                <option value="INTERNSHIP">Internship</option>
-                <option value="FREELANCE">Freelance</option>
+                <option>Full Time</option>
+                <option>Part Time</option>
+                <option>Contract</option>
+                <option>Internship</option>
+                <option>Freelance</option>
               </select>
             </div>
+          </div>
+
+          {/* ✅ NEW ROW: Category (Ye Missing Tha!) */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Job Category</label>
+            <select
+              name="category"
+              className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+              onChange={handleChange}
+              value={jobData.category}
+            >
+              <option>Engineering</option>
+              <option>Design</option>
+              <option>Marketing</option>
+              <option>Sales</option>
+              <option>Finance</option>
+              <option>HR</option>
+              <option>Customer Support</option>
+              <option>Other</option>
+            </select>
           </div>
 
           {/* Row 3: Salary Range */}

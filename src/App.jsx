@@ -8,7 +8,8 @@ import Register from './components/Register';
 import JobDetail from './components/JobDetail';
 import PostJob from './components/PostJob';
 import Dashboard from './components/Dashboard';
-import Footer from './components/Footer'; 
+import Footer from './components/Footer';
+import AICoverLetter from './components/AICoverLetter'; 
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/job/:id" element={<JobDetail />} />
             <Route path="/post-job" element={<PostJob />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/ai-cover-letter" element={<AICoverLetter />} />
           </Routes>
         </main>
 
