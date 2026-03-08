@@ -45,7 +45,7 @@ const Navbar = () => {
                  className="w-10 h-10 object-contain"
                />
                <h1 className="text-2xl font-bold text-blue-600 tracking-tight">
-                 CareerVision<span className="text-slate-800"> AI</span>
+                 CareerVision<span className="text-slate-800"> Portal</span>
                </h1>
             </Link>
           </div>
@@ -67,6 +67,13 @@ const Navbar = () => {
             >
                 <Sparkles size={18} className="text-yellow-500" /> AI Cover Letter
             </Link>
+
+            <Link 
+  to="/ats-scorer" 
+  className="text-gray-600 hover:text-blue-600 font-medium transition text-lg flex items-center gap-1"
+>
+  🎯 ATS Scorer
+</Link>
           </div>
 
           {/* ✅ RIGHT SIDE: Auth Buttons / User Profile */}
